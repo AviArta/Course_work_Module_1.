@@ -1,11 +1,6 @@
 import requests
 from datetime import datetime
 import json
-from tqdm import trange
-from time import sleep
-from pprint import pprint
-import class_YaUploader
-import course_work_Modul_1
 
 with open('token_vk_ya.txt', 'r') as file_object:
     VK_TOKEN = file_object.readline().strip()
@@ -39,8 +34,7 @@ class VK:
             'rev': rev,
             'extended': extended}
         response = requests.get(search_photos_url, params={**self.params, **search_photos_params}).json()
-        #pprint(response['response']['items'])
-        sleep(.1)
+
         return response['response']['items']
 
     def type_by_size(self):
@@ -55,8 +49,6 @@ class VK:
             sizes_list = photo_dict.get('sizes')
             likes = photo_dict.get('likes')
             name_photo = likes.get('count')
-            name_photos_dict = {}
-            #name_photos_list = []
             photo_all_size_dict = {}
             name_size_url_dict = {}
             max_type = 0
@@ -82,7 +74,6 @@ class VK:
             name_size_url_dict['size'] = max_type
             name_size_url_dict['url'] = url
             final_photo_list.append(name_size_url_dict)
-        sleep(.1)
         return final_photo_list
 
     def final_photo_list_by_size(self, count=5):
@@ -95,22 +86,9 @@ class VK:
                     final_photo_list_by_size.append(photo_data)
         return final_photo_list_by_size
 
+# запись в result.json всё равно берёт count=5.
     def add_file_result(self):
         final_photo_list_by_size = self.final_photo_list_by_size()
         with open('cw_result.json', 'w') as result_file:
             json.dump(final_photo_list_by_size, result_file, indent=4)
         return 'Success'
-
-    # def upload_photos_by_url(self, disk_file_path):
-    #     disk_file_path = 'Нетология/Курсовая_1(VK_profile)'
-    #     url_upload = class_YaUploader.url + '/v1/disk/resources/upload'
-    #     headers = self.get_headers()
-    #     with open('cw_result.json', 'r', encoding='utf-8') as file_for_url:
-    #         data_files = json.load(file_for_url)
-    #         for one_file in data_files:
-    #             params = {'url': one_file['url'],
-    #                       'path': f"{disk_file_path}/{one_file['file_name']}"}
-    #         response = requests.post(url_upload, headers=headers, params=params, data=open(url_upload, 'rb'))
-    #         response.raise_for_status()
-    #         if response.status_code == 201:
-    #             print('Success')
