@@ -1,6 +1,6 @@
 from pprint import pprint
 from time import sleep
-
+# id1745821
 import requests
 from tqdm import trange
 
@@ -33,14 +33,14 @@ def search_id_by_screen_name(access_token, screen_name, v='5.131'):
 user_id = tokens[1]
 if tokens[1] == '':
   user_id = search_id_by_screen_name(tokens[0], tokens[2])
-
+#print(user_id)
 
 if __name__ == '__main__':
     vk_client = class_VK.VK(tokens[0], user_id, version='5.131')
     #pprint(vk_client.search_photos_dict())
-    pprint(vk_client.final_photo_list_by_size())
-    #pprint(vk_client.add_file_result())
+    #pprint(vk_client.final_photo_list_by_size())
+    pprint(vk_client.add_file_result())
     ya_uploader = class_YaUploader.YaUploader(tokens[3])
-    #pprint(ya_uploader.create_new_folder())
+    pprint(ya_uploader.create_new_folder())
     pprint(ya_uploader.upload_photos_by_url())
 

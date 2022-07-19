@@ -68,11 +68,13 @@ class VK:
             final_photo_list.append(name_size_url_dict)
         return final_photo_list
 
-    def final_photo_list_by_size(self, count=5):
+    def final_photo_list_by_size(self):
         """ Функция создания финального списка фото, каждый размер которого уже мах.
         Количество фото в списке запрашивается у пользователя, по умолчанию 5.
         """
-        self.count = int(input('Введите нужное количество фотографий для загрузки: '))
+        self.count = input('Введите нужное количество фотографий для загрузки: ')
+        if self.count == '':
+            self.count = 5
         final_photo_list = self.search_photo_max_size()
         final_photo_list_by_size = []
         for el in self.type_by_size()[::-1]:
@@ -86,6 +88,7 @@ class VK:
         в результирующий json файл.
         """
         final_photo_list_by_size = self.final_photo_list_by_size()
+        print(final_photo_list_by_size)
         with open('cw_result.json', 'w') as result_file:
             json.dump(final_photo_list_by_size, result_file, indent=4)
         return 'Success'
