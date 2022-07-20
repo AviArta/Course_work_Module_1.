@@ -45,7 +45,7 @@ class YaUploader:
                       'path': f'{dir_ya}/{one_file["file_name"]}',
                       'overwrite': 'true'}
             response = requests.post(url=url_upload, headers=headers, params=params)
-            print(response.status_code)
+            #print(response.status_code)
             if response.status_code == 202:
                 print(f'Файл {one_file["file_name"]} загружен в папку {dir_ya} на Яндекс.Диск.')
                 sleep(.1)

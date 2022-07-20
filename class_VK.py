@@ -79,7 +79,7 @@ class VK:
         final_photo_list_by_size = []
         for el in self.type_by_size()[::-1]:
             for photo_data in final_photo_list:
-                if len(final_photo_list_by_size) < self.count and el == photo_data['size']:
+                if len(final_photo_list_by_size) < int(self.count) and el == photo_data['size']:
                     final_photo_list_by_size.append(photo_data)
         return final_photo_list_by_size
 
